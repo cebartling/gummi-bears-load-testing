@@ -10,3 +10,9 @@ Load tests for Gummi Bears!
 5. Install locust-plugins into your virtualenv environment: `pipenv install locust-plugins`
 6. Activate the virtualenv environment: `pipenv shell`
 7. Verify the locust installation: `locust -V`. You should see something like... `locust 1.2.3`.
+
+
+## Running the load test suite
+
+1. From the activated virtualenv environment: `locust --config=.locust.conf`
+
