@@ -1,4 +1,5 @@
 from locust import HttpUser
+
 from task_sets.gummi_bears_task_set import GummiBearsTaskSet
 
 
