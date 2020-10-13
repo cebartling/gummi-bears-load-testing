@@ -11,14 +11,12 @@ password = get_configuration_value('GUMMI_BEARS_DB_PASSWORD')
 hostname = get_configuration_value('GUMMI_BEARS_DB_HOSTNAME')
 port = get_configuration_value('GUMMI_BEARS_DB_PORT')
 database = get_configuration_value('GUMMI_BEARS_DB_DATABASE')
+echo_sql_alchemy = get_configuration_value('ECHO_SQLALCHEMY').lower() == 'true'
 
-
-def create_session():
-    engine = create_engine(f"postgresql://{username}:{password}@{hostname}:{port}/{database}", echo=True)
-    return sessionmaker(bind=engine)()
+engine = create_engine(f"postgresql://{username}:{password}@{hostname}:{port}/{database}", echo=echo_sql_alchemy)
+session = sessionmaker(bind=engine)()
+all_users = session.query(User).all()
 
 
 def random_user():
-    session = create_session()
-    users = session.query(User).all()
-    return random.choice(users)
+    return random.choice(all_users)
