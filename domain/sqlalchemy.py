@@ -3,7 +3,7 @@ import random
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from domain.models import User
+from domain.models import User, Stock
 from util.configuration import get_configuration_value
 
 username = get_configuration_value('GUMMI_BEARS_DB_USERNAME')
@@ -16,6 +16,7 @@ echo_sql_alchemy = get_configuration_value('ECHO_SQLALCHEMY').lower() == 'true'
 engine = create_engine(f"postgresql://{username}:{password}@{hostname}:{port}/{database}", echo=echo_sql_alchemy)
 session = sessionmaker(bind=engine)()
 all_users = session.query(User).all()
+all_stocks = session.query(Stock).all()
 
 
 def random_user():
