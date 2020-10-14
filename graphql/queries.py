@@ -115,7 +115,7 @@ get_user_stocks_query = """
     }
     """
 
-get_metrics_query = """
+get_all_metrics_query = """
     query RetrieveAllMetrics {
        metrics {
           id
