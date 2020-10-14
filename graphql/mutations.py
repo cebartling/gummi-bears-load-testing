@@ -32,3 +32,19 @@ create_order_mutation = """
       }
     }
     """
+
+create_stock_and_associate_with_user_mutation = """
+    mutation CreateStock($input: CreateStockMutationInput!) {
+       createStock(input: $input) {
+          clientMutationId 
+          message
+          errors
+          userStock {
+             id
+             stock {
+                id
+             }
+          }
+       }
+    }
+    """
