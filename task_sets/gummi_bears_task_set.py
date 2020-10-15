@@ -1,3 +1,5 @@
+import logging
+
 from locust import SequentialTaskSet, task, constant
 
 from domain.sqlalchemy import random_user
@@ -17,6 +19,7 @@ class GummiBearsTaskSet(SequentialTaskSet):
 
     @task
     def get_notifications(self):
+        logging.info('Retrieving user notifications...')
         query = notifications_by_user_id_query
         variables = {'userId': self.gummi_bear_user.id}
         with self.client.post(url=graphql_url(),
@@ -27,6 +30,7 @@ class GummiBearsTaskSet(SequentialTaskSet):
 
     @task
     def get_all_stocks(self):
+        logging.info('Retrieving stocks...')
         query = get_all_stocks_query
         variables = {}
         with self.client.post(url=graphql_url(),
@@ -37,6 +41,7 @@ class GummiBearsTaskSet(SequentialTaskSet):
 
     @task
     def get_all_metrics(self):
+        logging.info('Retrieving metrics...')
         query = get_all_metrics_query
         variables = {}
         with self.client.post(url=graphql_url(),
