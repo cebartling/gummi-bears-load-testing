@@ -1,0 +1,42 @@
+version: '3'
+services:
+
+  locust-master:
+    image: gummi-bear-locust-tests
+    ports:
+      - 8089:8089
+    command:
+      - --config=.locust.conf
+      - -H http://locust-master:8089
+
+  locust-metrics-exporter:
+    image: containersol/locust_exporter
+    ports:
+      - 9646:9646
+    environment:
+      - LOCUST_EXPORTER_URI=http://locust-master:8089
+    depends_on:
+      - locust-master
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - locust-metrics-exporter
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana.ini:/etc/grafana/grafana.ini
+      - ./datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+    depends_on:
+      - prometheus
