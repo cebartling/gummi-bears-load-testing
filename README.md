@@ -5,7 +5,7 @@ Load tests for Gummi Bears!
 
 1. Install pipenv via brew: `brew update && brew install pipenv`
 2. Create a virtualenv environment using a recent Python 3 runtime: `pipenv --python 3.8`
-3. Verify your Python 3 runtine installed: `pipenv --py`
+3. Verify your Python 3 interpreter is installed: `pipenv --py`
 4. Install the dependencies in the Pipfile into your virtualenv environment: `pipenv install`
 6. Activate the virtualenv environment: `pipenv shell`
 7. Verify the locust installation: `locust -V`. You should see something like... `locust 1.3.1`.
@@ -30,7 +30,7 @@ ECHO_SQLALCHEMY=false
 
 ### Master/worker processes (docker)
 
-1. Build a Docker image for our locust tests: `docker build . -t cweos-locust-tests`
+1. Build a Docker image for our locust tests: `docker build . -t gummi-bears-locust-tests`
     - This command will build the Gummi Bears locust tests docker image and cache it locally to make it available for your Docker Compose environment.
 1. Run your Docker Compose configuration, scaling up the `locust-worker` service to 4 containers: `docker-compose up`.
     - [Locust web UI](http://localhost:8089)
